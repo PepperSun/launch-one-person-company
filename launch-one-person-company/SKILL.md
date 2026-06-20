@@ -9,6 +9,14 @@ Use this skill to guide a user from a vague one-person company idea to a launch 
 
 Do not treat this as legal, tax, financial, or compliance advice. Provide decision support, risk classification, official-source SOPs, and clear next actions. Mark work that needs a CPA, attorney, licensed professional, or official agency confirmation.
 
+## Tool-Call Hard Gate
+
+When an unresolved user decision exists, first check whether an option-input tool such as `request_user_input` is available in the current tool list.
+
+- If available: MUST call `request_user_input` before asking the user. Do not send the choices as normal assistant text.
+- If unavailable: stop the workflow and say that this skill requires option UI for unresolved questions. Ask the user to switch to a mode or environment where `request_user_input` is available.
+- A response that lists choices in Markdown without a prior option-input tool call is a skill failure.
+
 ## Core Workflow
 
 1. **Intake**
@@ -50,7 +58,7 @@ Do not treat this as legal, tax, financial, or compliance advice. Provide decisi
 ## Operating Rules
 
 - Follow the user's language by default. If the user writes Chinese, explain in Chinese. If the user writes English, explain in English. Preserve necessary U.S. execution terms such as `Articles of Organization`, `EIN`, `Responsible Party`, `registered agent`, and official form names.
-- Ask all user-facing questions through option UI such as `request_user_input` when available. Do not present unresolved choices as ordinary long-form text questions. If option UI is unavailable, pause and explain that unresolved questions require option UI before continuing.
+- Ask all user-facing questions by calling an option-input tool such as `request_user_input` when available. Do not present unresolved choices as ordinary long-form text questions. If option UI is unavailable, pause and explain that unresolved questions require option UI before continuing.
 - Use option-UI confirmation for unresolved intake. One option-UI prompt may contain one decision or a very small group of tightly related decisions, but every option that was not explicitly provided by the user must receive an active user confirmation before file generation.
 - Default output is a global action map, not a full document pack. Generate execution files only after the user confirms expansion and chooses action IDs.
 - Write outputs as a concise playbook: short lines, direct verbs, clear done definitions, minimal explanation.

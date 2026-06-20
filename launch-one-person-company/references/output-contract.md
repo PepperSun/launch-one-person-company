@@ -85,7 +85,7 @@ Use this compact shape:
 
 ## Stage 2: Ask Whether To Expand
 
-After the user previews `00-action-map.md`, ask through option UI whether to generate execution files.
+After the user previews `00-action-map.md`, call `request_user_input` or an equivalent option-input tool to ask whether to generate execution files.
 
 Ask:
 
@@ -106,7 +106,7 @@ Preferred format choices:
 - `CSV checklist`: best for task tracking.
 - `Both`: higher output volume.
 
-If option UI is unavailable, pause. Do not ask for action IDs through a plain text questionnaire.
+If option UI is unavailable, pause. Do not ask for action IDs through a plain text questionnaire. A Markdown list of expansion choices without a prior option-input tool call is a failure.
 
 ## Stage 2: Execution Files
 

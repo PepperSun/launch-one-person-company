@@ -19,16 +19,18 @@ Collect these eight fields before action-map generation:
 
 ## Option-UI Confirmation Protocol
 
+This protocol requires a real tool call. If `request_user_input` or an equivalent option-input tool is available, call it. Writing a Markdown question with options is not option UI.
+
 Use this protocol unless the user has already answered all eight minimum fields in one message.
 
 1. Start from the fields the user explicitly provided.
-2. For each missing, unclear, inferred, or recommended field, ask the user to confirm it through option UI before generation.
+2. For each missing, unclear, inferred, or recommended field, ask the user to confirm it by calling `request_user_input` before generation.
 3. Ask one decision at a time by default. A single option-UI prompt may combine only tightly related decisions, such as `budget_and_timeline`.
 4. Each option must include the practical tradeoff in its description: advantage, disadvantage, cost or effort, risk, and whether it is reversible or blocking.
 5. Put the recommended choice first and suffix its label with `(Recommended)`.
 6. Include an `Unknown` option when the decision can safely remain unresolved. Treat the UI's free-form `Other` path as the place for corrections or custom answers.
 7. The user can answer with a choice, a correction, or `Unknown`.
-8. If option UI is not available, pause. Do not convert the same question into a long prose prompt.
+8. If `request_user_input` or equivalent option UI is not available, pause. Do not convert the same question into a prose prompt.
 9. Do not generate the action map until every minimum field is user-provided, user-confirmed, or user-marked unknown.
 
 When using `request_user_input` or equivalent option UI:
@@ -39,6 +41,25 @@ When using `request_user_input` or equivalent option UI:
 - Put tradeoffs in one-sentence descriptions.
 - Do not include an `Other` option manually if the UI adds it automatically.
 - Use the user's main language for prompts and labels.
+
+Minimal tool-call shape:
+
+```text
+request_user_input({
+  questions: [{
+    header: "short label",
+    id: "field_name",
+    question: "one short question in the user's language",
+    options: [
+      { label: "Default (Recommended)", description: "Advantage, disadvantage, effort, risk, reversible/blocking." },
+      { label: "Substitute", description: "Advantage, disadvantage, effort, risk, reversible/blocking." },
+      { label: "Unknown", description: "Keeps safe work moving and blocks only dependent actions." }
+    ]
+  }]
+})
+```
+
+Failure condition: if the assistant message contains selectable choices but no option-input tool call happened first, stop and correct the flow before continuing.
 
 ## Field Prompt Guidance
 

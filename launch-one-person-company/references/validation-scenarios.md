@@ -13,11 +13,11 @@ I want to build an AI invoice follow-up tool for independent consultants in Cali
 Expected behavior:
 
 - Classify as B2B SaaS with AI-tool aspects.
-- Ask every unresolved intake decision through option UI, not ordinary prose.
+- Ask every unresolved intake decision by calling `request_user_input` or equivalent option-input tool, not ordinary prose.
 - Require active user confirmation before generating files.
 - Research California, IRS, privacy, and relevant platform sources before adding external-process actions.
 - Generate `00-action-map.md` first, with concise action IDs such as `A01`.
-- Ask through option UI whether to expand selected action IDs into execution files.
+- Call `request_user_input` or equivalent option-input tool to ask whether to expand selected action IDs into execution files.
 - Recommend founder-led outreach, LinkedIn, direct consultant conversations, and careful AI/data handling.
 
 ## Scenario 2: Productized Service With Healthcare-Adjacent Risk
@@ -31,7 +31,7 @@ I want to help dental clinics set up an AI receptionist and charge monthly.
 Expected behavior:
 
 - Classify as productized service with AI automation.
-- Ask unresolved intake and risk questions through option UI.
+- Ask unresolved intake and risk questions by calling `request_user_input` or equivalent option-input tool.
 - Flag healthcare-adjacent and possible patient-data risk.
 - Include safe validation and packaging actions in the action map.
 - Mark HIPAA, patient data, consent, privacy, insurance, and regulated-claims execution actions as blocked or professional-review required.
@@ -48,7 +48,7 @@ I have an AI automation idea, but I do not know the customer, state, or pricing 
 Expected behavior:
 
 - Accept uncertainty.
-- Use option UI for each unresolved field.
+- Use `request_user_input` or equivalent option-input tool for each unresolved field.
 - Recommend defaults only as selectable choices.
 - Treat `Unknown` as an active answer.
 - Generate an action map focused on discovery and low-risk setup.
@@ -64,7 +64,7 @@ Generate execution files for A01-A03.
 
 Expected behavior:
 
-- Confirm the requested IDs through option UI unless the request is already explicit and complete.
+- Confirm the requested IDs through `request_user_input` or equivalent option-input tool unless the request is already explicit and complete.
 - Generate only files for selected action IDs.
 - Keep each execution file short, direct, and playbook-like.
 - Include where to do the task, how to do it, done definition, blocked consequence, next action, risk, and sources.
@@ -73,7 +73,8 @@ Expected behavior:
 
 The skill passes initial validation when all scenarios:
 
-- Ask user-facing questions through option UI when option UI is available.
+- Ask user-facing questions through actual option-input tool calls when option UI is available.
+- Treat Markdown choice lists without a prior option-input tool call as failure.
 - Pause instead of falling back to long prose questions when option UI is unavailable.
 - Avoid legal, tax, or compliance overclaiming.
 - Preserve unknowns as assumptions or blocked decisions.
