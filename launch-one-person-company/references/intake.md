@@ -1,6 +1,6 @@
 # Intake
 
-Collect enough information to generate a useful action map while making the user actively confirm every unresolved decision through option UI. The goal is to help the user think, not to silently replace their judgment with agent assumptions.
+Collect enough information to build the action map while making the user actively confirm unresolved decisions. The goal is to help the user think, not to silently replace judgment with agent assumptions.
 
 ## Minimum Fields
 
@@ -17,22 +17,29 @@ Collect these eight fields before action-map generation. Do not re-ask a field t
 | `launch_stage` | Idea only, customer conversations, MVP, already charging, or unclear | Infer from the user's facts and confirm |
 | `budget_and_timeline` | Launch budget and intended timeline | Use low-budget defaults if unknown |
 
-## Option-UI Confirmation Protocol
+## Decision States
+
+- `user-provided`: clear usable answer already given in the current conversation.
+- `user-confirmed`: user selected or confirmed an option.
+- `user-marked unknown`: user chose `Unknown` or said the field is not decided.
+- `unresolved`: missing, ambiguous, inferred by the agent, or only recommended by the agent.
+
+Do not ask again for `user-provided`, `user-confirmed`, or `user-marked unknown` fields.
+
+## Question Protocol
 
 This protocol requires a real tool call. If `request_user_input` or an equivalent option-input tool is available, call it. Writing a Markdown question with options is not option UI.
 
-Use this protocol only for fields that are not already `user-provided`.
-
 1. Start from the fields the user explicitly provided.
-2. Mark clear user answers as `user-provided`; do not ask those fields again.
-3. For each missing, unclear, inferred, or recommended field, ask the user to confirm it by calling `request_user_input` before generation.
-4. Ask one decision at a time by default. A single option-UI prompt may combine only tightly related decisions, such as `budget_and_timeline`.
-5. Each option must include the practical tradeoff in its description: advantage, disadvantage, cost or effort, risk, and whether it is reversible or blocking.
-6. Put the recommended choice first and suffix its label with `(Recommended)`.
-7. Include an `Unknown` option when the decision can safely remain unresolved. Treat the UI's free-form `Other` path as the place for corrections or custom answers.
-8. The user can answer with a choice, a correction, or `Unknown`.
-9. If `request_user_input` or equivalent option UI is not available, use the text-choice fallback.
-10. Do not generate the action map until every minimum field is user-provided, user-confirmed, or user-marked unknown.
+2. Mark each minimum field with a decision state.
+3. Ask only unresolved fields.
+4. Ask one decision at a time by default. Combine only tightly related decisions, such as `budget_and_timeline`.
+5. Give tradeoffs for each option: advantage, disadvantage, effort or cost, risk, and whether it is reversible or blocking.
+6. Put the recommended safe default first and suffix its label with `(Recommended)`.
+7. Include `Unknown` when the field can safely remain unresolved.
+8. Use the UI's free-form Other path for corrections or custom answers.
+9. If option UI is unavailable, use the text-choice fallback below.
+10. Do not generate the action map until every minimum field is `user-provided`, `user-confirmed`, or `user-marked unknown`.
 
 When using `request_user_input` or equivalent option UI:
 
@@ -60,7 +67,7 @@ request_user_input({
 })
 ```
 
-Failure condition: if an option-input tool is available and the assistant message contains selectable choices without calling it first, stop and correct the flow before continuing.
+Failure condition: if an option-input tool is available and the assistant message contains selectable choices without calling it first, stop and redo the decision with the tool.
 
 ## Text-Choice Fallback
 
@@ -104,7 +111,7 @@ Do not use long tables. Do not ask several unrelated questions in one message.
 
 When the user chooses `Unknown`:
 
-1. Mark the field as confirmed unknown.
+1. Mark the field as `user-marked unknown`.
 2. Keep safe actions in the action map.
 3. Block only the affected action-map node or execution SOP.
 4. State what information would unblock it.
@@ -113,22 +120,12 @@ When the user chooses `Unknown`:
 
 Before writing the action map, every minimum field must be one of:
 
-- User-provided.
-- Confirmed through option UI.
-- Confirmed unknown through option UI.
+- `user-provided`.
+- `user-confirmed`.
+- `user-marked unknown`.
 
 Do not treat an agent inference as complete without active user confirmation.
-Do not ask option UI for fields that are already user-provided.
-
-## Old Behavior To Avoid
-
-Do not use this style as the primary interaction:
-
-```markdown
-Here are the assumptions. Reply if correct.
-```
-
-Do not present a long markdown option matrix and ask the user to reply in prose. Use option UI when available; otherwise use the text-choice fallback.
+Do not ask again for fields that are already complete.
 
 ## Intake Style
 
@@ -143,26 +140,8 @@ When the user says "I do not know" or chooses `Unknown`:
 
 When the user gives a rough idea but leaves other fields unresolved, do not jump directly to a full assumption review. First walk through the missing fields with the option-UI confirmation protocol or text-choice fallback.
 
-## Assumption Review Template
+## Readback Before Files
 
-Before writing the action map, summarize:
+Before writing the action map, give a short readback in the user's language: idea, state, archetype, customer, revenue model, data risk, launch stage, budget and timeline, and blocked decisions.
 
-```markdown
-## Assumptions To Confirm
-
-- Idea:
-- State:
-- Primary archetype:
-- Secondary archetype:
-- Target customer:
-- Revenue model:
-- Data risk:
-- Launch stage:
-- Budget and timeline:
-- Website decision:
-- Social distribution priority:
-- Blocked decisions:
-- Confirmation status:
-```
-
-Ask the final confirmation through option UI only after the confirmation protocol is complete. Do not use this final review to skip unresolved confirmations.
+Do not use the readback to skip unresolved confirmations. If the readback asks the user to approve a remaining decision, use option UI when available or the text-choice fallback when unavailable.

@@ -1,6 +1,6 @@
 # Decision Support
 
-Use decision support whenever the user has not chosen a path or when multiple reasonable choices exist. If the user has already made a clear choice, record it as `user-provided` and do not ask again. User-facing decision questions must be asked by calling an option-input tool such as `request_user_input`, not as a long prose prompt.
+Use this reference to shape unresolved choices. Ask those choices through the protocol in `references/intake.md`; this file defines what tradeoffs to include.
 
 ## Option-UI Format
 
@@ -11,8 +11,8 @@ For each unresolved decision, prepare 2-3 mutually exclusive options:
 - Put the practical tradeoff in the option description: best for, advantage, disadvantage, cost or effort, risk, and whether it is reversible.
 - Include `Unknown` only when the decision can safely remain unresolved.
 - Use the UI's free-form Other path for custom answers.
-- If option UI is unavailable, use the text-choice fallback from `references/intake.md`: ask one question at a time with simple numbered choices.
-- If the assistant writes choices in Markdown while the option-input tool is available, treat that as a failed decision flow and restart the decision with a tool call.
+- If option UI is unavailable, use the text-choice fallback from `references/intake.md`.
+- If the user has already made a clear choice, record it as `user-provided` and do not ask again.
 
 For artifacts, you may summarize the decision in a compact table after the user has chosen. The artifact summary should state:
 

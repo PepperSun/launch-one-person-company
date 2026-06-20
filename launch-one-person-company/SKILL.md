@@ -1,76 +1,54 @@
 ---
 name: launch-one-person-company
-description: "Turn a vague OPC, one-person company, solo founder, solopreneur, AI/software business, productized service, consulting, or digital product idea into a US-default visual HTML launch action map and optional execution playbook. Use when the user wants startup-stage guidance from idea clarification through validation, registration/account setup SOPs, website decision, CRM/finance/payment stack, social account operations, compliance risk classification, and execution files."
+description: "Use when a user wants to turn a vague OPC, one-person company, solo founder, solopreneur, AI/software, productized service, consulting, or digital product idea into a U.S.-default launch plan, visual HTML action map, setup SOPs, compliance triage, social operations, or selected execution files."
 ---
 
 # Launch One-Person Company
 
-Use this skill to guide a user from a vague one-person company idea to a launch action map, then optionally to execution playbook files. Default to AI, software, productized service, consulting, and digital product businesses in a United States launch context.
+Guide a user from a vague one-person company idea to a visual HTML launch action map, then optionally to selected execution playbook files. Default to U.S. launch context and to AI, software, productized service, consulting, and digital product businesses.
 
 Do not treat this as legal, tax, financial, or compliance advice. Provide decision support, risk classification, official-source SOPs, and clear next actions. Mark work that needs a CPA, attorney, licensed professional, or official agency confirmation.
 
-## Tool-Call Hard Gate
+## Non-Negotiables
 
-Before asking anything, classify each required decision as `user-provided` or `unresolved`.
-
-- `user-provided`: the user already supplied a clear, usable answer in the current conversation. Record it and do not ask again.
-- `unresolved`: the field or choice is missing, ambiguous, only inferred by the agent, or only recommended by the agent.
-
-When an unresolved user decision exists, first check whether an option-input tool such as `request_user_input` is available in the current tool list.
-
-- If available: MUST call `request_user_input` before asking the user. Do not send the choices as normal assistant text.
-- If unavailable: use the text-choice fallback. Ask one unresolved question at a time, with short numbered choices and simple wording.
-- A response that lists choices in Markdown while an option-input tool is available is a skill failure.
-- If all required decisions for the next step are `user-provided`, skip option UI for those decisions and continue.
+- Classify each user-facing decision as `user-provided` or `unresolved` before asking. Do not re-ask clearly provided fields.
+- For unresolved decisions, use an option-input tool such as `request_user_input` when available. If unavailable, use the text-choice fallback in `references/intake.md`.
+- Follow the user's main conversation language for questions, summaries, and all visible action-map text. Preserve official U.S. terms such as `Articles of Organization`, `EIN`, `Responsible Party`, and `registered agent`.
+- Default output is `00-action-map.html`, not a Markdown map or full document pack.
+- Generate execution files only after the user previews the map and chooses action IDs, ranges, or all actions.
+- Browse current official sources before including U.S. registration, EIN, tax, license, BOI, privacy, AI disclosure, regulated-industry, platform-policy, or compliance SOPs.
+- Block only the affected high-risk task when facts are missing. Keep safe validation and setup work moving.
+- Show realistic substitutes and tradeoffs when recommending tools, accounts, websites, CRM, payments, finance, or social channels.
 
 ## Core Workflow
 
-1. **Intake**
-   Collect the eight minimum intake fields from `references/intake.md`. If the user has not explicitly answered every field, run the option-UI confirmation protocol or text-choice fallback in `references/intake.md`. Let users answer "unknown"; do not force premature decisions.
-
-2. **Classify**
-   Read `references/archetypes.md` and assign one primary archetype plus, if useful, one secondary archetype.
-
-3. **Support Decisions**
-   For unclear choices, use `references/decision-support.md` to prepare option-UI choices with advantages, disadvantages, costs, risks, a recommended default, and whether the default is reversible or blocking.
-
-4. **Classify Risk**
-   Use `references/risk-classification.md` to decide which tasks can proceed, which need warnings, and which are blocked until the user or a professional confirms more information.
-
-5. **Review Assumptions**
-   Before generating files, summarize the inferred archetype, user language, state, target customer, revenue model, launch stage, data risk, recommended defaults, and blocked decisions. Do not proceed with best-effort assumptions unless every missing, inferred, or recommended choice has been confirmed through option UI, answered through the text-choice fallback, corrected, or marked "unknown" by the user.
-
-6. **Research Current Official Sources**
-   For U.S. external processes that can change, browse current official sources before including action-map nodes or execution SOPs. This includes state registration, EIN, state or local tax accounts, local licenses, BOI or FinCEN status, privacy and consumer-protection requirements, industry licensing, and platform policy when relevant. Prefer state portals, secretary of state sites, IRS, FinCEN, FTC, state attorneys general, city or county portals, and official vendor documentation. If current official verification is unavailable, mark that action or SOP as unverified or blocked.
-
-7. **Generate Action Map**
-   Use `references/output-contract.md` to create the default visual HTML action-map playbook under `opc-launch-packs/YYYY-MM-DD-project-slug/` in the current workspace. This is the default output and must be concise.
-
-8. **Ask Whether To Expand**
-   After the user previews the action map, ask through option UI whether to generate execution files. Generate detailed files only for the selected action IDs, selected range, or "all".
+1. Collect and confirm the eight minimum intake fields from `references/intake.md`.
+2. Classify one primary archetype, plus one secondary archetype when useful, using `references/archetypes.md`.
+3. Shape unresolved choices with `references/decision-support.md`.
+4. Classify risk and blocked work with `references/risk-classification.md`.
+5. Research current official and platform sources for external-process actions.
+6. Create the default visual action map under `opc-launch-packs/YYYY-MM-DD-project-slug/` using `references/output-contract.md`.
+7. Ask whether to expand selected action IDs, then generate only the requested execution files.
 
 ## Reference Routing
 
-- Read `references/intake.md` before asking intake questions or accepting incomplete inputs.
-- Read `references/archetypes.md` when classifying the business type or selecting archetype-specific paths.
-- Read `references/decision-support.md` whenever the user has not decided among viable options.
-- Read `references/risk-classification.md` before producing legal, tax, privacy, regulated-industry, data, or compliance-related steps.
-- Read `references/us-external-sop.md` before generating registration, EIN, license, tax, BOI, privacy, AI disclosure, or other external-process SOPs.
-- Read `references/tool-substitutes.md` before recommending tools or accounts.
-- Read `references/social-account-ops.md` before recommending founder accounts, brand accounts, communities, content cadence, or social distribution.
-- Read `references/output-contract.md` before writing action-map or execution files.
-- Read `references/validation-scenarios.md` when validating or forward-testing this skill.
+| Need | Read |
+|---|---|
+| Intake, option UI, text fallback, unknowns | `references/intake.md` |
+| Business type and launch path | `references/archetypes.md` |
+| Option tradeoffs and substitutes | `references/decision-support.md` |
+| Legal, tax, privacy, data, regulated, or compliance risk | `references/risk-classification.md` |
+| Registration, EIN, license, tax, BOI, privacy, AI disclosure, external SOPs | `references/us-external-sop.md` |
+| Tools, accounts, website, CRM, finance, payment stack | `references/tool-substitutes.md` |
+| Founder/brand accounts, communities, cadence, social distribution | `references/social-account-ops.md` |
+| HTML action map and execution files | `references/output-contract.md` |
+| Validation and forward tests | `references/validation-scenarios.md` |
 
-## Operating Rules
+## Operating Checks
 
-- Follow the user's language by default. If the user writes Chinese, explain in Chinese. If the user writes English, explain in English. Use that same language for visible action-map text. Preserve necessary U.S. execution terms such as `Articles of Organization`, `EIN`, `Responsible Party`, `registered agent`, and official form names.
-- Ask all unresolved user-facing questions by calling an option-input tool such as `request_user_input` when available. Do not present unresolved choices as ordinary long-form text questions. If option UI is unavailable, use the one-question text-choice fallback and continue once the user answers.
-- Use option-UI confirmation for unresolved intake. One option-UI prompt may contain one decision or a very small group of tightly related decisions, but every option that was not explicitly provided by the user must receive an active user confirmation before file generation.
-- Default output is a visual HTML global action map, not a full document pack. Generate execution files only after the user confirms expansion and chooses action IDs.
-- Write outputs as a concise playbook: short lines, direct verbs, clear done definitions, minimal explanation.
-- Default to a lean bootstrapped setup, but show Standard and Pro or regulated substitutes when tool choice matters.
-- Do not always recommend a website. Decide based on archetype, launch stage, customer acquisition path, and whether the user already has a site or no-code builder.
-- Include social account operations as an operational launch component, not generic marketing advice. Also state when social should not be the priority.
-- Block only the affected high-risk SOP or task when critical information is missing. Continue generating safe validation, planning, and low-risk setup work.
-- Never claim a user definitely does or does not need an entity, license, tax account, insurance, privacy policy, professional review, or compliance certification unless current official sources and the user's facts support a cautious statement.
-- When citing external processes in generated action maps or execution files, include source names and links in the relevant action or SOP.
+- Before writing files, verify every minimum field is `user-provided`, `user-confirmed`, or `user-marked unknown`.
+- Keep outputs playbook-like: direct verbs, short lines, clear done definitions, minimal explanation.
+- Do not always recommend a website; decide from archetype, stage, acquisition path, and credibility needs.
+- Include social operations as concrete launch work when useful, and state when social should not be the priority.
+- Never claim a user definitely needs or does not need an entity, license, tax account, insurance, privacy policy, professional review, or compliance certification unless current official sources and user facts support that cautious statement.
+- Include source names and links beside external-process action nodes or SOP steps.

@@ -1,6 +1,6 @@
 # Output Contract
 
-Default to a visual HTML action-map playbook. Do not generate a large document pack unless the user previews the map and chooses execution files through option UI or the text-choice fallback.
+Default to a visual HTML action-map playbook. Do not generate execution files unless the user previews the map and chooses action IDs through option UI or the text-choice fallback.
 
 Generate artifacts in the current workspace under:
 
@@ -18,7 +18,7 @@ Required default file:
 00-action-map.html
 ```
 
-The action map is a global overview. It must be a standalone HTML file with inline CSS and no required external assets. Keep it short enough to scan in one pass.
+The action map is a standalone global overview with inline CSS and no required external assets. Keep it short enough to scan in one pass.
 
 ### Required HTML Shape
 
@@ -70,7 +70,7 @@ A01, A02, A03...
 - Cards may use compact labels, badges, and connecting arrows.
 - Use responsive CSS so the map works on desktop and mobile.
 - Include print-friendly CSS with useful page breaks.
-- Do not depend on JavaScript. Use JavaScript only if it materially improves the visualization and the static HTML still reads correctly without it.
+- Do not require JavaScript. Use it only if the static HTML still reads correctly without it.
 - Do not use a marketing landing-page style. This is a playbook surface.
 
 Each action card must include:
@@ -148,7 +148,7 @@ Preferred format choices:
 - `CSV checklist`: best for task tracking.
 - `Both`: higher output volume.
 
-If option UI is unavailable, use short numbered text choices and accept free-form answers. A Markdown list of expansion choices while option UI is available is a failure.
+If option UI is unavailable, use short numbered text choices and accept free-form answers.
 
 ## Stage 2: Execution Files
 

@@ -64,7 +64,7 @@ Choose 3-4:
 2. Reply helpfully before asking for anything.
 3. Ask discovery questions before pitching.
 4. Move qualified conversations to email, CRM, waitlist, or booking only after relevance is clear.
-5. Log every qualified conversation in `09-crm-pipeline.csv`.
+5. Log every qualified conversation in the chosen CRM, spreadsheet, or selected execution file.
 6. Avoid mass posting the same message across communities.
 
 ## Lead Capture

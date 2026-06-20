@@ -15,7 +15,7 @@ For each important tool choice, include advantages, disadvantages, approximate c
 
 | Category | Lean Default | Standard Substitute | Pro / Regulated Substitute | When To Upgrade |
 |---|---|---|---|---|
-| Domain | Namecheap, Cloudflare Registrar, or existing registrar | Google Domains replacement through Squarespace, Porkbun | Managed IT provider | Brand matters or DNS setup becomes complex |
+| Domain | Existing registrar, Cloudflare Registrar, Porkbun, or Namecheap | Squarespace Domains or another mainstream registrar | Managed IT provider | Brand matters or DNS setup becomes complex |
 | Email | Google Workspace starter or Zoho Mail | Google Workspace Business, Microsoft 365 | Managed compliance email | Sending volume, team growth, or enterprise customers |
 | Website | No site, Carrd, Notion page, or static HTML | Framer, Webflow, Squarespace | Custom app or CMS | Paid acquisition, SEO, integrations, or enterprise trust |
 | CRM | Google Sheets or Airtable | HubSpot free or Pipedrive | Salesforce or regulated CRM | More than 30 active leads or multiple stages/users |
