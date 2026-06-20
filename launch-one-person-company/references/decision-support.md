@@ -11,7 +11,7 @@ For each unresolved decision, prepare 2-3 mutually exclusive options:
 - Put the practical tradeoff in the option description: best for, advantage, disadvantage, cost or effort, risk, and whether it is reversible.
 - Include `Unknown` only when the decision can safely remain unresolved.
 - Use the UI's free-form Other path for custom answers.
-- If option UI is unavailable, pause instead of turning the decision into a text questionnaire.
+- If option UI is unavailable, use the free-form completion fallback from `references/intake.md`; list only the missing decision field names and let the user answer freely.
 - If the assistant writes choices in Markdown without first calling the option-input tool, treat that as a failed decision flow and restart the decision with a tool call.
 
 For artifacts, you may summarize the decision in a compact table after the user has chosen. The artifact summary should state:

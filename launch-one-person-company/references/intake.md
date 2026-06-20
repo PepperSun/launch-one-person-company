@@ -31,7 +31,7 @@ Use this protocol only for fields that are not already `user-provided`.
 6. Put the recommended choice first and suffix its label with `(Recommended)`.
 7. Include an `Unknown` option when the decision can safely remain unresolved. Treat the UI's free-form `Other` path as the place for corrections or custom answers.
 8. The user can answer with a choice, a correction, or `Unknown`.
-9. If `request_user_input` or equivalent option UI is not available, pause. Do not convert the same question into a prose prompt.
+9. If `request_user_input` or equivalent option UI is not available, use the free-form completion fallback. Do not convert the same question into a prose multiple-choice prompt.
 10. Do not generate the action map until every minimum field is user-provided, user-confirmed, or user-marked unknown.
 
 When using `request_user_input` or equivalent option UI:
@@ -61,6 +61,32 @@ request_user_input({
 ```
 
 Failure condition: if the assistant message contains selectable choices but no option-input tool call happened first, stop and correct the flow before continuing.
+
+## No-Option Fallback
+
+Use this only when option UI is unavailable.
+
+1. List the missing fields as plain field names.
+2. Do not include multiple-choice options.
+3. Do not recommend defaults inside the fallback.
+4. Let the user answer freely in their own words.
+5. After the user supplies enough information, mark those fields as `user-provided` and continue.
+6. If a field remains missing, keep only the dependent action blocked; continue safe action-map work when possible.
+
+Fallback shape:
+
+```text
+Option UI is not available here. You can still continue by filling these fields in free form:
+
+state:
+target_customer:
+revenue_model:
+data_risk:
+launch_stage:
+budget_and_timeline:
+```
+
+This is not a questionnaire with choices. Do not add A/B/C options or option tradeoffs in this fallback.
 
 ## Field Prompt Guidance
 
@@ -114,7 +140,7 @@ When the user says "I do not know" or chooses `Unknown`:
 3. Mark the default as an assumption only after user confirmation.
 4. Identify whether the decision is reversible or blocking.
 
-When the user gives a rough idea but leaves other fields unresolved, do not jump directly to a full assumption review. First walk through the missing fields with the option-UI confirmation protocol.
+When the user gives a rough idea but leaves other fields unresolved, do not jump directly to a full assumption review. First walk through the missing fields with the option-UI confirmation protocol or no-option fallback.
 
 ## Assumption Review Template
 

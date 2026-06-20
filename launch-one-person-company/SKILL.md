@@ -19,14 +19,14 @@ Before asking anything, classify each required decision as `user-provided` or `u
 When an unresolved user decision exists, first check whether an option-input tool such as `request_user_input` is available in the current tool list.
 
 - If available: MUST call `request_user_input` before asking the user. Do not send the choices as normal assistant text.
-- If unavailable: stop the workflow and say that this skill requires option UI for unresolved questions. Ask the user to switch to a mode or environment where `request_user_input` is available.
+- If unavailable: do not ask multiple-choice questions in text. Instead, offer a free-form completion path: list only the missing field names the user can fill in. If the user then provides enough information, mark those fields as `user-provided` and continue to the action map.
 - A response that lists choices in Markdown without a prior option-input tool call is a skill failure.
 - If all required decisions for the next step are `user-provided`, skip option UI for those decisions and continue.
 
 ## Core Workflow
 
 1. **Intake**
-   Collect the eight minimum intake fields from `references/intake.md`. If the user has not explicitly answered every field, run the option-UI confirmation protocol in `references/intake.md`. Let users answer "unknown"; do not force premature decisions.
+   Collect the eight minimum intake fields from `references/intake.md`. If the user has not explicitly answered every field, run the option-UI confirmation protocol or no-option fallback in `references/intake.md`. Let users answer "unknown"; do not force premature decisions.
 
 2. **Classify**
    Read `references/archetypes.md` and assign one primary archetype plus, if useful, one secondary archetype.
@@ -38,7 +38,7 @@ When an unresolved user decision exists, first check whether an option-input too
    Use `references/risk-classification.md` to decide which tasks can proceed, which need warnings, and which are blocked until the user or a professional confirms more information.
 
 5. **Review Assumptions**
-   Before generating files, summarize the inferred archetype, user language, state, target customer, revenue model, launch stage, data risk, recommended defaults, and blocked decisions. Do not proceed with best-effort assumptions unless every missing, inferred, or recommended choice has been asked through option UI and actively confirmed, corrected, or marked "unknown" by the user.
+   Before generating files, summarize the inferred archetype, user language, state, target customer, revenue model, launch stage, data risk, recommended defaults, and blocked decisions. Do not proceed with best-effort assumptions unless every missing, inferred, or recommended choice has been confirmed through option UI, supplied through the no-option fallback, corrected, or marked "unknown" by the user.
 
 6. **Research Current Official Sources**
    For U.S. external processes that can change, browse current official sources before including action-map nodes or execution SOPs. This includes state registration, EIN, state or local tax accounts, local licenses, BOI or FinCEN status, privacy and consumer-protection requirements, industry licensing, and platform policy when relevant. Prefer state portals, secretary of state sites, IRS, FinCEN, FTC, state attorneys general, city or county portals, and official vendor documentation. If current official verification is unavailable, mark that action or SOP as unverified or blocked.
@@ -64,7 +64,7 @@ When an unresolved user decision exists, first check whether an option-input too
 ## Operating Rules
 
 - Follow the user's language by default. If the user writes Chinese, explain in Chinese. If the user writes English, explain in English. Preserve necessary U.S. execution terms such as `Articles of Organization`, `EIN`, `Responsible Party`, `registered agent`, and official form names.
-- Ask all unresolved user-facing questions by calling an option-input tool such as `request_user_input` when available. Do not present unresolved choices as ordinary long-form text questions. If option UI is unavailable, pause and explain that unresolved questions require option UI before continuing.
+- Ask all unresolved user-facing questions by calling an option-input tool such as `request_user_input` when available. Do not present unresolved choices as ordinary long-form text questions. If option UI is unavailable, use the free-form completion path and continue once the user provides enough information.
 - Use option-UI confirmation for unresolved intake. One option-UI prompt may contain one decision or a very small group of tightly related decisions, but every option that was not explicitly provided by the user must receive an active user confirmation before file generation.
 - Default output is a global action map, not a full document pack. Generate execution files only after the user confirms expansion and chooses action IDs.
 - Write outputs as a concise playbook: short lines, direct verbs, clear done definitions, minimal explanation.

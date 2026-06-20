@@ -84,6 +84,32 @@ Expected behavior:
 - Continue to classification, official-source research, and action-map generation.
 - Use option UI only for later unresolved decisions, such as whether to expand execution files if the user has not specified it.
 
+## Scenario 6: Option UI Unavailable, User Completes Fields
+
+Prompt sequence:
+
+```text
+I want to do cross-border ecommerce.
+```
+
+Then the environment has no `request_user_input`, and the user replies:
+
+```text
+state: California
+target_customer: US consumers buying imported home goods
+revenue_model: one-time product sales
+data_risk: customer order and shipping data
+launch_stage: idea only
+budget_and_timeline: low budget, 30 days
+```
+
+Expected behavior:
+
+- First response lists missing field names only, without A/B/C choices.
+- After the user fills the fields, mark them as `user-provided`.
+- Continue to classification, official-source research, and `00-action-map.md`.
+- Block only actions that still need official or professional confirmation.
+
 ## Pass Criteria
 
 The skill passes initial validation when all scenarios:
@@ -91,7 +117,7 @@ The skill passes initial validation when all scenarios:
 - Skip option UI for decisions the user has already clearly and completely provided.
 - Ask user-facing questions through actual option-input tool calls when option UI is available.
 - Treat Markdown choice lists without a prior option-input tool call as failure.
-- Pause instead of falling back to long prose questions when option UI is unavailable.
+- When option UI is unavailable, use a plain missing-field completion fallback and continue after the user provides enough information.
 - Avoid legal, tax, or compliance overclaiming.
 - Preserve unknowns as assumptions or blocked decisions.
 - Require active user confirmation for every missing, inferred, or recommended intake decision before writing files.
