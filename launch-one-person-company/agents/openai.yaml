@@ -1,0 +1,4 @@
+interface:
+  display_name: "Launch One-Person Company"
+  short_description: "Plan an OPC launch readiness pack"
+  default_prompt: "Use $launch-one-person-company to turn my one-person company idea into a launch readiness pack."
