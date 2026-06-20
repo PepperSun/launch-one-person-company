@@ -35,6 +35,7 @@ The skill includes:
 - Customer validation planning.
 - Business model and pricing decision support.
 - Startup sequencing for registration, accounts, tools, website, CRM, finance, payment, and contracts.
+- Social account and community-distribution operating advice.
 - State-aware and industry-aware external SOPs for U.S. setup tasks.
 - Compliance and licensing risk classification.
 - Blocked-decision tracking.
@@ -171,6 +172,26 @@ Each tool category should include Lean, Standard, and Regulated or Pro options w
 
 Each recommendation should include advantages, disadvantages, approximate cost, suitable stage, and migration triggers.
 
+## Social Account Operations
+
+The skill should include social account and community-distribution advice as part of the launch pack.
+
+The advice should be operational, not generic. It should include:
+
+- Whether the user needs a founder account, brand account, both, or neither at the current stage.
+- Recommended channels by archetype and customer type, such as LinkedIn, X, Reddit, Hacker News, Indie Hackers, YouTube, TikTok, newsletter, Slack or Discord communities, cold email, or niche forums.
+- The advantages, disadvantages, effort level, and risk of each viable channel.
+- A recommended default channel mix for the first 30 days.
+- Account positioning, bio, pinned post, credibility signals, and profile setup checklist.
+- Content pillars based on the idea, ICP, and validation stage.
+- A lightweight posting cadence and interaction routine.
+- Community participation SOPs, including how to ask questions, share progress, avoid spam, and convert conversations into customer interviews.
+- Lead-capture path from social activity into CRM, email list, waitlist, demo call, or direct outreach.
+- Metrics to track, such as replies, qualified conversations, waitlist signups, demo calls, trials, paid conversions, and content-to-lead ratio.
+- Privacy, endorsement, advertising, platform-rule, and regulated-claims cautions when relevant.
+
+The skill should also state when not to prioritize social account operations. Examples include businesses that can validate faster through warm introductions, direct outbound, existing communities, or customer interviews before public positioning is clear.
+
 ## Website Decision
 
 The skill should not always generate a website.
@@ -207,6 +228,7 @@ Default files:
 09-crm-pipeline.csv
 10-finance-tracker.csv
 11-blocked-decisions.md
+12-social-account-ops.md
 ```
 
 Optional folder:
@@ -239,6 +261,7 @@ launch-one-person-company/
     output-contract.md
     us-external-sop.md
     tool-substitutes.md
+    social-account-ops.md
     risk-classification.md
     validation-scenarios.md
 ```
@@ -254,17 +277,17 @@ The initial skill should be validated with three representative prompts:
 1. Low-risk B2B SaaS
    "I want to build an AI invoice follow-up tool for independent consultants in California."
 
-   Expected behavior: classify as B2B SaaS with AI-tool aspects, produce validation plan, California-aware external SOPs, account stack, CRM and finance templates, and a landing-page brief or draft.
+   Expected behavior: classify as B2B SaaS with AI-tool aspects, produce validation plan, California-aware external SOPs, account stack, CRM and finance templates, a landing-page brief or draft, and a social distribution plan focused on consultant communities and direct founder-led outreach.
 
 2. Productized service with healthcare-adjacent risk
    "I want to help dental clinics set up an AI receptionist and charge monthly."
 
-   Expected behavior: classify as productized service with AI automation and healthcare-adjacent data risk, recommend service packages and operational setup, and block or escalate patient-data, HIPAA, consent, privacy, insurance, and regulatory questions.
+   Expected behavior: classify as productized service with AI automation and healthcare-adjacent data risk, recommend service packages and operational setup, provide cautious social and community outreach guidance for dental-practice decision makers, and block or escalate patient-data, HIPAA, consent, privacy, insurance, and regulated-claims questions.
 
 3. Highly uncertain idea
    "I have an AI automation idea, but I do not know the customer, state, or pricing yet."
 
-   Expected behavior: provide option matrices and recommended defaults, generate low-risk validation and discovery tasks, and block state-specific registration SOPs until the state is known.
+   Expected behavior: provide option matrices and recommended defaults, generate low-risk validation and discovery tasks, recommend low-commitment social listening and customer-discovery channels, and block state-specific registration SOPs until the state is known.
 
 ## Acceptance Criteria
 
@@ -276,5 +299,6 @@ The skill is successful when:
 - It uses official-source research for current U.S. registration, tax, BOI, license, and compliance SOPs.
 - It locally blocks high-risk uncertain SOPs while still generating safe parts of the launch pack.
 - It produces the agreed Markdown, CSV, and optional static website files in a date-and-slug folder.
+- It provides operational social account and community-distribution advice with channel trade-offs, profile setup, content pillars, cadence, interaction SOPs, lead-capture path, and metrics.
 - It follows the user's language while preserving necessary English execution terminology.
 - It avoids legal, tax, or compliance overclaiming.
