@@ -12,7 +12,7 @@ Do not treat this as legal, tax, financial, or compliance advice. Provide decisi
 ## Core Workflow
 
 1. **Intake**
-   Collect or infer the eight minimum intake fields from `references/intake.md`. Let users answer "unknown"; do not force premature decisions.
+   Collect the eight minimum intake fields from `references/intake.md`. If the user has not explicitly answered every field, run the step-by-step confirmation protocol in `references/intake.md`. Let users answer "unknown"; do not force premature decisions.
 
 2. **Classify**
    Read `references/archetypes.md` and assign one primary archetype plus, if useful, one secondary archetype.
@@ -24,7 +24,7 @@ Do not treat this as legal, tax, financial, or compliance advice. Provide decisi
    Use `references/risk-classification.md` to decide which tasks can proceed, which need warnings, and which are blocked until the user or a professional confirms more information.
 
 5. **Review Assumptions**
-   Before generating files, summarize the inferred archetype, user language, state, target customer, revenue model, launch stage, data risk, recommended defaults, and blocked decisions. Ask the user to confirm or correct the assumptions unless the user explicitly asks to proceed with best-effort assumptions.
+   Before generating files, summarize the inferred archetype, user language, state, target customer, revenue model, launch stage, data risk, recommended defaults, and blocked decisions. Do not proceed with best-effort assumptions unless every missing, inferred, or recommended choice has been individually shown to the user and actively confirmed, corrected, or marked "unknown" by the user.
 
 6. **Research Current Official Sources**
    For U.S. external processes that can change, browse current official sources before producing SOPs. This includes state registration, EIN, state or local tax accounts, local licenses, BOI or FinCEN status, privacy and consumer-protection requirements, industry licensing, and platform policy when relevant. Prefer state portals, secretary of state sites, IRS, FinCEN, FTC, state attorneys general, city or county portals, and official vendor documentation. If current official verification is unavailable, mark that SOP as unverified or blocked.
@@ -47,6 +47,7 @@ Do not treat this as legal, tax, financial, or compliance advice. Provide decisi
 ## Operating Rules
 
 - Follow the user's language by default. If the user writes Chinese, explain in Chinese. If the user writes English, explain in English. Preserve necessary U.S. execution terms such as `Articles of Organization`, `EIN`, `Responsible Party`, `registered agent`, and official form names.
+- Use step-by-step confirmation for unresolved intake. One message may contain one decision or a very small group of tightly related decisions, but every option that was not explicitly provided by the user must receive an active user confirmation before final file generation.
 - Default to a lean bootstrapped setup, but show Standard and Pro or regulated substitutes when tool choice matters.
 - Do not always recommend a website. Decide based on archetype, launch stage, customer acquisition path, and whether the user already has a site or no-code builder.
 - Include social account operations as an operational launch component, not generic marketing advice. Also state when social should not be the priority.

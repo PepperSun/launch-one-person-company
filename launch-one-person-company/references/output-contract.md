@@ -25,7 +25,7 @@ Include:
 
 ### `01-intake-and-assumptions.md`
 
-Include all intake fields, inferred assumptions, unknowns, and user-confirmed corrections.
+Include all intake fields, inferred assumptions, unknowns, user-confirmed corrections, and confirmation status for each minimum field.
 
 ### `02-validation-plan.md`
 

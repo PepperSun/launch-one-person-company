@@ -13,7 +13,7 @@ I want to build an AI invoice follow-up tool for independent consultants in Cali
 Expected behavior:
 
 - Classify as B2B SaaS with AI-tool aspects.
-- Ask or infer the eight intake fields.
+- Ask the user to actively confirm every intake field not explicitly answered in the prompt before final file generation.
 - Identify California state-specific SOP needs and browse official sources before writing them.
 - Produce validation plan, landing-page brief or draft, CRM and finance templates, and social distribution plan.
 - Recommend consultant communities, direct founder-led outreach, LinkedIn, and careful AI/data handling.
@@ -46,6 +46,7 @@ Expected behavior:
 
 - Accept uncertainty.
 - Provide option matrices and recommended defaults.
+- Walk through unresolved fields one at a time and require the user to choose, correct, or mark each one unknown.
 - Generate low-risk validation and discovery work.
 - Recommend low-commitment social listening and customer-discovery channels.
 - Block state-specific registration and tax SOPs until the state is known.
@@ -56,6 +57,7 @@ The skill passes initial validation when all scenarios:
 
 - Avoid legal, tax, or compliance overclaiming.
 - Preserve unknowns as assumptions or blocked decisions.
+- Require active user confirmation for every missing, inferred, or recommended intake decision before writing final launch-pack files.
 - Use official-source research for current external SOPs.
 - Produce the required output contract or a clear pre-generation assumption review.
 - Include social account operations with platform trade-offs, content pillars, cadence, lead capture, and metrics.
