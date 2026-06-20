@@ -16,7 +16,8 @@ Expected behavior:
 - Ask every unresolved intake decision by calling `request_user_input` or equivalent option-input tool, not ordinary prose.
 - Require active user confirmation before generating files.
 - Research California, IRS, privacy, and relevant platform sources before adding external-process actions.
-- Generate `00-action-map.md` first, with concise action IDs such as `A01`.
+- Generate `00-action-map.html` first, with a visual map and concise action IDs such as `A01`.
+- Use the user's main conversation language for all visible HTML labels and action text.
 - Call `request_user_input` or equivalent option-input tool to ask whether to expand selected action IDs into execution files.
 - Recommend founder-led outreach, LinkedIn, direct consultant conversations, and careful AI/data handling.
 
@@ -108,7 +109,7 @@ Expected behavior:
 - First response asks one unresolved question with simple numbered text choices.
 - Do not ask multiple unrelated questions in one message.
 - After the user answers each question, mark it as `user-provided`, `user-confirmed`, or `user-marked unknown`.
-- Continue to classification, official-source research, and `00-action-map.md`.
+- Continue to classification, official-source research, and `00-action-map.html`.
 - Block only actions that still need official or professional confirmation.
 
 ## Pass Criteria
@@ -122,7 +123,8 @@ The skill passes initial validation when all scenarios:
 - Avoid legal, tax, or compliance overclaiming.
 - Preserve unknowns as assumptions or blocked decisions.
 - Require active user confirmation for every missing, inferred, or recommended intake decision before writing files.
-- Default to `00-action-map.md`, not a full document pack.
+- Default to `00-action-map.html`, not a full document pack.
+- Make the action map visual, standalone, responsive, and readable as a playbook.
 - Ask through option UI before expanding execution files.
 - Generate execution files only for selected action IDs.
 - Use official-source research for current external actions and SOPs.

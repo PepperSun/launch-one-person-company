@@ -1,6 +1,6 @@
 # Output Contract
 
-Default to an action-map playbook. Do not generate a large document pack unless the user previews the map and chooses execution files through option UI.
+Default to a visual HTML action-map playbook. Do not generate a large document pack unless the user previews the map and chooses execution files through option UI or the text-choice fallback.
 
 Generate artifacts in the current workspace under:
 
@@ -10,40 +10,70 @@ opc-launch-packs/YYYY-MM-DD-project-slug/
 
 Use a lowercase slug derived from the idea. Avoid overwriting existing folders; append `-2`, `-3`, or a short timestamp if needed.
 
-## Stage 1: Default Action Map
+## Stage 1: Default Visual Action Map
 
 Required default file:
 
 ```text
-00-action-map.md
+00-action-map.html
 ```
 
-The action map is a global overview. Keep it short enough to scan in one pass.
+The action map is a global overview. It must be a standalone HTML file with inline CSS and no required external assets. Keep it short enough to scan in one pass.
 
-### Required Sections
+### Required HTML Shape
 
-```markdown
-# [Project Name] Action Map
+Use semantic HTML. All visible text must use the user's main conversation language, except stable action IDs and necessary official U.S. terms.
 
-## Snapshot
-- Idea:
-- State:
-- Customer:
-- Revenue test:
-- Data risk:
-- Stage:
-- Blocked:
+```html
+<!doctype html>
+<html lang="[user-language-code]">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>[Project Name] [Action Map label]</title>
+  <style>
+    /* Inline, responsive, print-friendly CSS only. */
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <p>[OPC / launch stage label]</p>
+      <h1>[Project Name] [Action Map label]</h1>
+    </header>
 
-## Action Map
+    <section aria-labelledby="snapshot-title">
+      <h2 id="snapshot-title">[Snapshot label]</h2>
+      <!-- Idea, state, customer, revenue test, data risk, stage, blocked -->
+    </section>
+
+    <section aria-labelledby="map-title">
+      <h2 id="map-title">[Action Map label]</h2>
+      <!-- Flow row, timeline, or dependency map plus action cards. -->
+    </section>
+  </main>
+</body>
+</html>
 ```
 
-Then include 7-12 numbered actions. Use stable IDs:
+### Visual Requirements
+
+- Show a compact snapshot panel.
+- Show a visual flow, timeline, lane view, or dependency map for the full launch path.
+- Use 7-12 numbered action cards with stable IDs:
 
 ```text
 A01, A02, A03...
 ```
 
-Each action must include:
+- Each card must be readable without opening another file.
+- Cards may use compact labels, badges, and connecting arrows.
+- Use responsive CSS so the map works on desktop and mobile.
+- Include print-friendly CSS with useful page breaks.
+- Do not depend on JavaScript. Use JavaScript only if it materially improves the visualization and the static HTML still reads correctly without it.
+- Do not use a marketing landing-page style. This is a playbook surface.
+
+Each action card must include:
 
 - `When`: the node or trigger when this action should happen.
 - `Do`: the concrete action.
@@ -57,35 +87,42 @@ Each action must include:
 
 Use this compact shape:
 
-```markdown
-### A01 - [Action Name]
-- When:
-- Do:
-- How:
-  1.
-  2.
-  3.
-- Where:
-- Done:
-- If blocked:
-- Next:
-- Risk:
-- Source:
+```html
+<article class="action-card" id="A01">
+  <div class="action-head">
+    <span class="action-id">A01</span>
+    <h3>[Action Name]</h3>
+    <span class="risk risk-low">[Risk label]</span>
+  </div>
+  <dl>
+    <dt>[When]</dt><dd>...</dd>
+    <dt>[Do]</dt><dd>...</dd>
+    <dt>[How]</dt><dd><ol><li>...</li></ol></dd>
+    <dt>[Where]</dt><dd>...</dd>
+    <dt>[Done]</dt><dd>...</dd>
+    <dt>[If blocked]</dt><dd>...</dd>
+    <dt>[Next]</dt><dd><a href="#A02">A02</a></dd>
+    <dt>[Source]</dt><dd><a href="...">...</a></dd>
+  </dl>
+</article>
 ```
 
 ## Stage 1 Style Rules
 
-- Use the user's main language.
+- Use the user's main conversation language for every visible label, heading, and sentence.
 - Use short sentences.
 - Use direct verbs.
 - Avoid long explanations.
 - Avoid motivational copy.
 - Do not include long option matrices.
 - Keep legal, tax, and compliance caveats short and attached to the relevant action.
+- Keep CSS restrained and utilitarian. The map should feel like an operating playbook, not a landing page.
+- Use color only to clarify status, risk, sequence, and blocked items.
+- Keep all source links visible and clickable.
 
 ## Stage 2: Ask Whether To Expand
 
-After the user previews `00-action-map.md`, decide whether expansion choices are already `user-provided`.
+After the user previews `00-action-map.html`, decide whether expansion choices are already `user-provided`.
 
 - If the user explicitly says not to expand, stop after the action map.
 - If the user explicitly provides action IDs and output format, generate those files without asking again.

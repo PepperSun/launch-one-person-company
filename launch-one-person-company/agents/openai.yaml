@@ -1,4 +1,4 @@
 interface:
   display_name: "Launch One-Person Company"
-  short_description: "Create an OPC action map"
-  default_prompt: "Use $launch-one-person-company to turn my one-person company idea into a launch action map. Use option UI when available; otherwise ask simple text choices one question at a time."
+  short_description: "Create a visual OPC action map"
+  default_prompt: "Use $launch-one-person-company to turn my one-person company idea into a visual HTML launch action map. Use option UI when available; otherwise ask simple text choices one question at a time."

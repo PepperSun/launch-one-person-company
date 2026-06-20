@@ -1,6 +1,6 @@
 ---
 name: launch-one-person-company
-description: "Turn a vague OPC, one-person company, solo founder, solopreneur, AI/software business, productized service, consulting, or digital product idea into a US-default launch action map and optional execution playbook. Use when the user wants startup-stage guidance from idea clarification through validation, registration/account setup SOPs, website decision, CRM/finance/payment stack, social account operations, compliance risk classification, and execution files."
+description: "Turn a vague OPC, one-person company, solo founder, solopreneur, AI/software business, productized service, consulting, or digital product idea into a US-default visual HTML launch action map and optional execution playbook. Use when the user wants startup-stage guidance from idea clarification through validation, registration/account setup SOPs, website decision, CRM/finance/payment stack, social account operations, compliance risk classification, and execution files."
 ---
 
 # Launch One-Person Company
@@ -44,7 +44,7 @@ When an unresolved user decision exists, first check whether an option-input too
    For U.S. external processes that can change, browse current official sources before including action-map nodes or execution SOPs. This includes state registration, EIN, state or local tax accounts, local licenses, BOI or FinCEN status, privacy and consumer-protection requirements, industry licensing, and platform policy when relevant. Prefer state portals, secretary of state sites, IRS, FinCEN, FTC, state attorneys general, city or county portals, and official vendor documentation. If current official verification is unavailable, mark that action or SOP as unverified or blocked.
 
 7. **Generate Action Map**
-   Use `references/output-contract.md` to create the default action-map playbook under `opc-launch-packs/YYYY-MM-DD-project-slug/` in the current workspace. This is the default output and must be concise.
+   Use `references/output-contract.md` to create the default visual HTML action-map playbook under `opc-launch-packs/YYYY-MM-DD-project-slug/` in the current workspace. This is the default output and must be concise.
 
 8. **Ask Whether To Expand**
    After the user previews the action map, ask through option UI whether to generate execution files. Generate detailed files only for the selected action IDs, selected range, or "all".
@@ -63,10 +63,10 @@ When an unresolved user decision exists, first check whether an option-input too
 
 ## Operating Rules
 
-- Follow the user's language by default. If the user writes Chinese, explain in Chinese. If the user writes English, explain in English. Preserve necessary U.S. execution terms such as `Articles of Organization`, `EIN`, `Responsible Party`, `registered agent`, and official form names.
+- Follow the user's language by default. If the user writes Chinese, explain in Chinese. If the user writes English, explain in English. Use that same language for visible action-map text. Preserve necessary U.S. execution terms such as `Articles of Organization`, `EIN`, `Responsible Party`, `registered agent`, and official form names.
 - Ask all unresolved user-facing questions by calling an option-input tool such as `request_user_input` when available. Do not present unresolved choices as ordinary long-form text questions. If option UI is unavailable, use the one-question text-choice fallback and continue once the user answers.
 - Use option-UI confirmation for unresolved intake. One option-UI prompt may contain one decision or a very small group of tightly related decisions, but every option that was not explicitly provided by the user must receive an active user confirmation before file generation.
-- Default output is a global action map, not a full document pack. Generate execution files only after the user confirms expansion and chooses action IDs.
+- Default output is a visual HTML global action map, not a full document pack. Generate execution files only after the user confirms expansion and chooses action IDs.
 - Write outputs as a concise playbook: short lines, direct verbs, clear done definitions, minimal explanation.
 - Default to a lean bootstrapped setup, but show Standard and Pro or regulated substitutes when tool choice matters.
 - Do not always recommend a website. Decide based on archetype, launch stage, customer acquisition path, and whether the user already has a site or no-code builder.
