@@ -13,10 +13,12 @@ I want to build an AI invoice follow-up tool for independent consultants in Cali
 Expected behavior:
 
 - Classify as B2B SaaS with AI-tool aspects.
-- Ask the user to actively confirm every intake field not explicitly answered in the prompt before final file generation.
-- Identify California state-specific SOP needs and browse official sources before writing them.
-- Produce validation plan, landing-page brief or draft, CRM and finance templates, and social distribution plan.
-- Recommend consultant communities, direct founder-led outreach, LinkedIn, and careful AI/data handling.
+- Ask every unresolved intake decision through option UI, not ordinary prose.
+- Require active user confirmation before generating files.
+- Research California, IRS, privacy, and relevant platform sources before adding external-process actions.
+- Generate `00-action-map.md` first, with concise action IDs such as `A01`.
+- Ask through option UI whether to expand selected action IDs into execution files.
+- Recommend founder-led outreach, LinkedIn, direct consultant conversations, and careful AI/data handling.
 
 ## Scenario 2: Productized Service With Healthcare-Adjacent Risk
 
@@ -29,10 +31,11 @@ I want to help dental clinics set up an AI receptionist and charge monthly.
 Expected behavior:
 
 - Classify as productized service with AI automation.
+- Ask unresolved intake and risk questions through option UI.
 - Flag healthcare-adjacent and possible patient-data risk.
-- Recommend package, scope, contract, insurance, and delivery SOP planning.
-- Provide cautious outreach guidance for dental-practice decision makers.
-- Block or escalate HIPAA, patient data, consent, privacy, insurance, and regulated-claims questions.
+- Include safe validation and packaging actions in the action map.
+- Mark HIPAA, patient data, consent, privacy, insurance, and regulated-claims execution actions as blocked or professional-review required.
+- Do not generate detailed compliance SOP files unless the user selects those action IDs after preview.
 
 ## Scenario 3: Highly Uncertain Idea
 
@@ -45,19 +48,40 @@ I have an AI automation idea, but I do not know the customer, state, or pricing 
 Expected behavior:
 
 - Accept uncertainty.
-- Provide option matrices and recommended defaults.
-- Walk through unresolved fields one at a time and require the user to choose, correct, or mark each one unknown.
-- Generate low-risk validation and discovery work.
-- Recommend low-commitment social listening and customer-discovery channels.
-- Block state-specific registration and tax SOPs until the state is known.
+- Use option UI for each unresolved field.
+- Recommend defaults only as selectable choices.
+- Treat `Unknown` as an active answer.
+- Generate an action map focused on discovery and low-risk setup.
+- Block state-specific registration and tax actions until the state is known.
+
+## Scenario 4: Execution Expansion
+
+Prompt after an action map exists:
+
+```text
+Generate execution files for A01-A03.
+```
+
+Expected behavior:
+
+- Confirm the requested IDs through option UI unless the request is already explicit and complete.
+- Generate only files for selected action IDs.
+- Keep each execution file short, direct, and playbook-like.
+- Include where to do the task, how to do it, done definition, blocked consequence, next action, risk, and sources.
 
 ## Pass Criteria
 
 The skill passes initial validation when all scenarios:
 
+- Ask user-facing questions through option UI when option UI is available.
+- Pause instead of falling back to long prose questions when option UI is unavailable.
 - Avoid legal, tax, or compliance overclaiming.
 - Preserve unknowns as assumptions or blocked decisions.
-- Require active user confirmation for every missing, inferred, or recommended intake decision before writing final launch-pack files.
-- Use official-source research for current external SOPs.
-- Produce the required output contract or a clear pre-generation assumption review.
-- Include social account operations with platform trade-offs, content pillars, cadence, lead capture, and metrics.
+- Require active user confirmation for every missing, inferred, or recommended intake decision before writing files.
+- Default to `00-action-map.md`, not a full document pack.
+- Ask through option UI before expanding execution files.
+- Generate execution files only for selected action IDs.
+- Use official-source research for current external actions and SOPs.
+- Include social account operations as specific action-map nodes or selected execution files.
+- Use the user's main language.
+- Keep all artifacts simple, direct, and playbook-like.

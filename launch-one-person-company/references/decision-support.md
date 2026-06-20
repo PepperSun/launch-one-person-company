@@ -1,15 +1,19 @@
 # Decision Support
 
-Use decision support whenever the user has not chosen a path or when multiple reasonable choices exist.
+Use decision support whenever the user has not chosen a path or when multiple reasonable choices exist. User-facing decision questions must be asked through option UI, not as a long prose prompt.
 
-## Option Matrix Format
+## Option-UI Format
 
-```markdown
-| Option | Best For | Advantages | Disadvantages | Cost / Effort | Risk | Recommendation |
-|---|---|---|---|---|---|---|
-```
+For each unresolved decision, prepare 2-3 mutually exclusive options:
 
-After the matrix, state:
+- Put the recommended default first and suffix its label with `(Recommended)`.
+- Keep option labels short.
+- Put the practical tradeoff in the option description: best for, advantage, disadvantage, cost or effort, risk, and whether it is reversible.
+- Include `Unknown` only when the decision can safely remain unresolved.
+- Use the UI's free-form Other path for custom answers.
+- If option UI is unavailable, pause instead of turning the decision into a text questionnaire.
+
+For artifacts, you may summarize the decision in a compact table after the user has chosen. The artifact summary should state:
 
 - Recommended default.
 - Why the default fits the user's current facts.

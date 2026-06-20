@@ -1,6 +1,8 @@
 # Output Contract
 
-Generate launch packs in the current workspace under:
+Default to an action-map playbook. Do not generate a large document pack unless the user previews the map and chooses execution files through option UI.
+
+Generate artifacts in the current workspace under:
 
 ```text
 opc-launch-packs/YYYY-MM-DD-project-slug/
@@ -8,98 +10,171 @@ opc-launch-packs/YYYY-MM-DD-project-slug/
 
 Use a lowercase slug derived from the idea. Avoid overwriting existing folders; append `-2`, `-3`, or a short timestamp if needed.
 
-## Required Files
+## Stage 1: Default Action Map
 
-### `00-executive-summary.md`
+Required default file:
 
-Include:
-
-- One-paragraph business summary.
-- Primary and secondary archetype.
-- Target customer and painful workflow.
-- Launch stage.
-- Recommended default path.
-- Top risks.
-- Blocked decisions.
-- Next 7 days.
-
-### `01-intake-and-assumptions.md`
-
-Include all intake fields, inferred assumptions, unknowns, user-confirmed corrections, and confirmation status for each minimum field.
-
-### `02-validation-plan.md`
-
-Include:
-
-- Riskiest assumptions.
-- Interview targets.
-- Interview script.
-- Outreach scripts.
-- Manual MVP or concierge test.
-- Success metrics.
-- Kill or pivot criteria.
-
-### `03-business-model-and-pricing.md`
-
-Include revenue model options, recommendation, starter pricing, packaging, billing cadence, refund or cancellation assumptions, and validation milestones.
-
-### `04-launch-roadmap.csv`
-
-Use these columns:
-
-```csv
-phase,task,why_it_matters,owner,dependency,estimated_effort,cost_range,risk_level,official_source,done_definition,status
+```text
+00-action-map.md
 ```
 
-### `05-operations-stack.md`
+The action map is a global overview. Keep it short enough to scan in one pass.
 
-Include Lean, Standard, and Pro or regulated tool options for domain, email, CRM, payment, accounting, contracts, support, analytics, scheduling, AI providers, and automation.
+### Required Sections
 
-### `06-legal-tax-compliance-sop.md`
+```markdown
+# [Project Name] Action Map
 
-Include official-source SOPs, blocked SOPs, and professional-review warnings. Use `references/us-external-sop.md`.
+## Snapshot
+- Idea:
+- State:
+- Customer:
+- Revenue test:
+- Data risk:
+- Stage:
+- Blocked:
 
-### `07-accounts-and-tools-checklist.csv`
-
-Use these columns:
-
-```csv
-category,tool_or_account,recommended_tier,purpose,setup_steps,estimated_cost,substitutes,dependency,risk_level,done_definition,status
+## Action Map
 ```
 
-### `08-website-brief.md`
+Then include 7-12 numbered actions. Use stable IDs:
 
-Include whether a website is needed now, why, recommended format, page structure, copy blocks, CTA, lead capture path, privacy cautions, and when to upgrade.
-
-### `09-crm-pipeline.csv`
-
-Use these columns:
-
-```csv
-lead_name,segment,source,status,next_action,next_action_date,pain_point,offer_fit,estimated_value,notes
+```text
+A01, A02, A03...
 ```
 
-### `10-finance-tracker.csv`
+Each action must include:
 
-Use these columns:
+- `When`: the node or trigger when this action should happen.
+- `Do`: the concrete action.
+- `How`: 1-3 direct steps.
+- `Where`: website, platform, account, community, agency, or local file.
+- `Done`: observable completion standard.
+- `If blocked`: what happens if the user cannot complete it.
+- `Next`: next action ID.
+- `Risk`: low, medium, high, or blocked.
+- `Source`: official or platform source link when the action depends on external rules.
 
-```csv
-date,type,category,vendor_or_customer,description,amount,payment_method,tax_relevance,receipt_link,notes
+Use this compact shape:
+
+```markdown
+### A01 - [Action Name]
+- When:
+- Do:
+- How:
+  1.
+  2.
+  3.
+- Where:
+- Done:
+- If blocked:
+- Next:
+- Risk:
+- Source:
 ```
 
-### `11-blocked-decisions.md`
+## Stage 1 Style Rules
 
-Include each blocked item, why it is blocked, what information is needed, what can proceed meanwhile, who should confirm it, and official sources to check.
+- Use the user's main language.
+- Use short sentences.
+- Use direct verbs.
+- Avoid long explanations.
+- Avoid motivational copy.
+- Do not include long option matrices.
+- Keep legal, tax, and compliance caveats short and attached to the relevant action.
 
-### `12-social-account-ops.md`
+## Stage 2: Ask Whether To Expand
 
-Include platform choice, founder vs brand account decision, profile checklist, content pillars, 30-day cadence, community participation SOPs, lead capture path, metrics, and cautions.
+After the user previews `00-action-map.md`, ask through option UI whether to generate execution files.
 
-## Optional `website-draft/`
+Ask:
 
-Create static HTML/CSS only when the website decision calls for it or the user asks for it.
+1. Whether to generate execution files.
+2. Which action IDs to expand.
+3. Preferred format.
 
-Default files:
+Recommended option choices:
+
+- `Priority only (Recommended)`: expand the next 1-3 unblocked actions.
+- `Selected IDs`: user provides IDs through the free-form Other path, such as `A01,A03-A05`.
+- `All actions`: expand every action, including blocked actions as blocked SOPs.
+- `Not now`: stop after the action map.
+
+Preferred format choices:
+
+- `Markdown playbook (Recommended)`: best for SOPs and step-by-step execution.
+- `CSV checklist`: best for task tracking.
+- `Both`: higher output volume.
+
+If option UI is unavailable, pause. Do not ask for action IDs through a plain text questionnaire.
+
+## Stage 2: Execution Files
+
+Generate only the files selected by action ID. Put them under:
+
+```text
+execution/
+```
+
+Use this naming pattern:
+
+```text
+execution/A01-short-action-name.md
+execution/A02-short-action-name.md
+execution/A03-short-action-name.csv
+```
+
+Each Markdown execution file must include:
+
+```markdown
+# A01 - [Action Name]
+
+## Goal
+
+## Before You Start
+- Inputs needed:
+- Accounts needed:
+- Decisions needed:
+
+## Steps
+1.
+2.
+3.
+
+## Where To Do It
+
+## Done Definition
+
+## If You Cannot Finish
+
+## Next Action
+
+## Sources
+```
+
+Each CSV checklist must use these columns:
+
+```csv
+action_id,task,where_to_do_it,input_needed,done_definition,dependency,risk_level,source,status
+```
+
+## Optional Execution Modules
+
+Map action IDs to only the modules the user selected:
+
+- Validation and customer discovery.
+- Business model and pricing.
+- Registration, EIN, tax, licenses, BOI, and compliance SOPs.
+- Accounts and tools checklist.
+- Website or waitlist brief.
+- CRM pipeline.
+- Finance tracker.
+- Social account operations.
+- Static website draft.
+
+Create `website-draft/` only when the selected action ID calls for a website or the user asks for it.
+
+Default website draft files:
 
 ```text
 website-draft/
