@@ -69,10 +69,26 @@ Expected behavior:
 - Keep each execution file short, direct, and playbook-like.
 - Include where to do the task, how to do it, done definition, blocked consequence, next action, risk, and sources.
 
+## Scenario 5: Complete Intake Already Provided
+
+Prompt:
+
+```text
+Use this idea: AI Etsy listing automation for California sellers. State: California. Archetype: AI tool. Customer: Etsy POD sellers. Revenue: paid pilot then subscription. Data: shop and listing data only, no buyer personal data. Stage: idea only. Budget: low, 30 days.
+```
+
+Expected behavior:
+
+- Mark all eight minimum fields as `user-provided`.
+- Do not ask option UI for those completed fields.
+- Continue to classification, official-source research, and action-map generation.
+- Use option UI only for later unresolved decisions, such as whether to expand execution files if the user has not specified it.
+
 ## Pass Criteria
 
 The skill passes initial validation when all scenarios:
 
+- Skip option UI for decisions the user has already clearly and completely provided.
 - Ask user-facing questions through actual option-input tool calls when option UI is available.
 - Treat Markdown choice lists without a prior option-input tool call as failure.
 - Pause instead of falling back to long prose questions when option UI is unavailable.

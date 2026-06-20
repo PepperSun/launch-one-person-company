@@ -85,7 +85,11 @@ Use this compact shape:
 
 ## Stage 2: Ask Whether To Expand
 
-After the user previews `00-action-map.md`, call `request_user_input` or an equivalent option-input tool to ask whether to generate execution files.
+After the user previews `00-action-map.md`, decide whether expansion choices are already `user-provided`.
+
+- If the user explicitly says not to expand, stop after the action map.
+- If the user explicitly provides action IDs and output format, generate those files without asking again.
+- If action IDs, range, "all", or output format are missing or ambiguous, call `request_user_input` or an equivalent option-input tool for only the missing decision.
 
 Ask:
 

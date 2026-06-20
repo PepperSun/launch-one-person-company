@@ -1,6 +1,6 @@
 # Decision Support
 
-Use decision support whenever the user has not chosen a path or when multiple reasonable choices exist. User-facing decision questions must be asked by calling an option-input tool such as `request_user_input`, not as a long prose prompt.
+Use decision support whenever the user has not chosen a path or when multiple reasonable choices exist. If the user has already made a clear choice, record it as `user-provided` and do not ask again. User-facing decision questions must be asked by calling an option-input tool such as `request_user_input`, not as a long prose prompt.
 
 ## Option-UI Format
 
