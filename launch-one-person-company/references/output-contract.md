@@ -90,7 +90,7 @@ After the user previews `00-action-map.md`, decide whether expansion choices are
 - If the user explicitly says not to expand, stop after the action map.
 - If the user explicitly provides action IDs and output format, generate those files without asking again.
 - If action IDs, range, "all", or output format are missing or ambiguous and option UI is available, call `request_user_input` or an equivalent option-input tool for only the missing decision.
-- If option UI is unavailable, use a free-form completion fallback with only these field names: `expand_action_ids` and `execution_format`.
+- If option UI is unavailable, ask one simple text-choice question at a time for `expand_action_ids` and `execution_format`.
 
 Ask:
 
@@ -111,7 +111,7 @@ Preferred format choices:
 - `CSV checklist`: best for task tracking.
 - `Both`: higher output volume.
 
-If option UI is unavailable, do not ask for action IDs through a plain text multiple-choice questionnaire. Let the user provide `expand_action_ids` and `execution_format` freely, then continue. A Markdown list of expansion choices without a prior option-input tool call is a failure.
+If option UI is unavailable, use short numbered text choices and accept free-form answers. A Markdown list of expansion choices while option UI is available is a failure.
 
 ## Stage 2: Execution Files
 

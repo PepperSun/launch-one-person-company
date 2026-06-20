@@ -84,7 +84,7 @@ Expected behavior:
 - Continue to classification, official-source research, and action-map generation.
 - Use option UI only for later unresolved decisions, such as whether to expand execution files if the user has not specified it.
 
-## Scenario 6: Option UI Unavailable, User Completes Fields
+## Scenario 6: Option UI Unavailable, Text Choices
 
 Prompt sequence:
 
@@ -105,8 +105,9 @@ budget_and_timeline: low budget, 30 days
 
 Expected behavior:
 
-- First response lists missing field names only, without A/B/C choices.
-- After the user fills the fields, mark them as `user-provided`.
+- First response asks one unresolved question with simple numbered text choices.
+- Do not ask multiple unrelated questions in one message.
+- After the user answers each question, mark it as `user-provided`, `user-confirmed`, or `user-marked unknown`.
 - Continue to classification, official-source research, and `00-action-map.md`.
 - Block only actions that still need official or professional confirmation.
 
@@ -116,8 +117,8 @@ The skill passes initial validation when all scenarios:
 
 - Skip option UI for decisions the user has already clearly and completely provided.
 - Ask user-facing questions through actual option-input tool calls when option UI is available.
-- Treat Markdown choice lists without a prior option-input tool call as failure.
-- When option UI is unavailable, use a plain missing-field completion fallback and continue after the user provides enough information.
+- Treat Markdown choice lists as failure only when an option-input tool was available and not used.
+- When option UI is unavailable, use simple one-question text choices and continue after the user provides enough information.
 - Avoid legal, tax, or compliance overclaiming.
 - Preserve unknowns as assumptions or blocked decisions.
 - Require active user confirmation for every missing, inferred, or recommended intake decision before writing files.

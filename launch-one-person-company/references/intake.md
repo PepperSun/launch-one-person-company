@@ -31,7 +31,7 @@ Use this protocol only for fields that are not already `user-provided`.
 6. Put the recommended choice first and suffix its label with `(Recommended)`.
 7. Include an `Unknown` option when the decision can safely remain unresolved. Treat the UI's free-form `Other` path as the place for corrections or custom answers.
 8. The user can answer with a choice, a correction, or `Unknown`.
-9. If `request_user_input` or equivalent option UI is not available, use the free-form completion fallback. Do not convert the same question into a prose multiple-choice prompt.
+9. If `request_user_input` or equivalent option UI is not available, use the text-choice fallback.
 10. Do not generate the action map until every minimum field is user-provided, user-confirmed, or user-marked unknown.
 
 When using `request_user_input` or equivalent option UI:
@@ -60,33 +60,34 @@ request_user_input({
 })
 ```
 
-Failure condition: if the assistant message contains selectable choices but no option-input tool call happened first, stop and correct the flow before continuing.
+Failure condition: if an option-input tool is available and the assistant message contains selectable choices without calling it first, stop and correct the flow before continuing.
 
-## No-Option Fallback
+## Text-Choice Fallback
 
 Use this only when option UI is unavailable.
 
-1. List the missing fields as plain field names.
-2. Do not include multiple-choice options.
-3. Do not recommend defaults inside the fallback.
-4. Let the user answer freely in their own words.
-5. After the user supplies enough information, mark those fields as `user-provided` and continue.
-6. If a field remains missing, keep only the dependent action blocked; continue safe action-map work when possible.
+1. Ask one unresolved question at a time.
+2. Use simple language in the user's main language.
+3. Give 2-3 numbered choices.
+4. Put the recommended choice first when there is a safe default.
+5. Keep each choice to one short line.
+6. Include `Unknown` when the field can safely remain unresolved.
+7. Let the user answer with a number, label, or their own text.
+8. After the user answers, mark the field as `user-provided`, `user-confirmed`, or `user-marked unknown`.
+9. If a field remains missing, ask the next required question or block only the dependent action.
 
 Fallback shape:
 
 ```text
-Option UI is not available here. You can still continue by filling these fields in free form:
+Option UI is not available here. I will ask one question at a time.
 
-state:
-target_customer:
-revenue_model:
-data_risk:
-launch_stage:
-budget_and_timeline:
+Question: Which state should this launch use?
+1. California (Recommended) - Use this if you live or operate there.
+2. Unknown - Continue validation; state registration and tax steps stay blocked.
+3. Other - Reply with the state.
 ```
 
-This is not a questionnaire with choices. Do not add A/B/C options or option tradeoffs in this fallback.
+Do not use long tables. Do not ask several unrelated questions in one message.
 
 ## Field Prompt Guidance
 
@@ -127,7 +128,7 @@ Do not use this style as the primary interaction:
 Here are the assumptions. Reply if correct.
 ```
 
-Do not present a long markdown option matrix and ask the user to reply in prose. Use option UI instead.
+Do not present a long markdown option matrix and ask the user to reply in prose. Use option UI when available; otherwise use the text-choice fallback.
 
 ## Intake Style
 
@@ -140,7 +141,7 @@ When the user says "I do not know" or chooses `Unknown`:
 3. Mark the default as an assumption only after user confirmation.
 4. Identify whether the decision is reversible or blocking.
 
-When the user gives a rough idea but leaves other fields unresolved, do not jump directly to a full assumption review. First walk through the missing fields with the option-UI confirmation protocol or no-option fallback.
+When the user gives a rough idea but leaves other fields unresolved, do not jump directly to a full assumption review. First walk through the missing fields with the option-UI confirmation protocol or text-choice fallback.
 
 ## Assumption Review Template
 
